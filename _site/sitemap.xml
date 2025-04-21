@@ -52,7 +52,7 @@
 <loc>http://localhost:4000/projects/adversarial</loc>
 </url>
 <url>
-<loc>http://localhost:4000/blog</loc>
+<loc>http://localhost:4000/blog/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/projects/brain2pix</loc>

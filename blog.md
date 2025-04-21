@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Blogposts!
+permalink: /blog/
 ---
 
 {% for post in site.posts %}

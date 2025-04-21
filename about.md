@@ -4,19 +4,33 @@ title: About me
 permalink: /about/
 ---
 
-
-<div style="display: flex; align-items: center;">
-  <img src="{{ site.baseurl }}/images/profile_pic.jpg" alt="My Photo" width="200" style="margin-right: 20px; border-radius: 8px;">
-  <p>
-I am a multidisciplinary AI engineer with a passion for neuroscience, code, and creativity. My background spans computational neuroscience, machine learning, and software development, and I thrive on working with ideas that challenge boundaries or offer fresh perspectives on how we understand the world. 
-
-With a PhD in AI and a unique blend of science and creativity, I focus on projects that explore the intersection of intelligence and machines. 
-
-</p>
+<div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-start;">
+  <img src="{{ site.baseurl }}/images/profile_pic.jpg" alt="My Photo" width="200" style="margin-right: 20px; border-radius: 8px; flex-shrink: 0;">
+  <p style="flex-grow: 1; max-width: 70%; text-align: left;">
+    I am a multidisciplinary AI engineer with a passion for neuroscience, code, and creativity. My background spans computational neuroscience, machine learning, and software development, and I thrive on working with ideas that challenge boundaries or offer fresh perspectives on how we understand the world. 
+    With a PhD in AI and a unique blend of science and creativity, I focus on projects that explore the intersection of intelligence and machines. I’m particularly drawn to building tools and systems that enhance knowledge and improve efficiency. Creativity allows us to test our disciplines, express our values, and envision a better future. It keeps me curious, open, and playful; qualities that fuel my approach, even when working on serious or technical challenges.
+  </p>
 </div>
 
+<!-- Media Query for smaller screens -->
+<style>
+  @media (max-width: 768px) {
+    div {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-I’m particularly drawn to building tools and systems that enhance knowledge and improve efficiency. Creativity allows us to test our disciplines, express our values, and envision a better future. It keeps me curious, open, and playful; qualities that fuel my approach, even when working on serious or technical challenges.
+    img {
+      margin-bottom: 20px;
+    }
+
+    p {
+      max-width: 100%;
+      padding: 0 15px;
+    }
+  }
+</style>
 
 ---
 
