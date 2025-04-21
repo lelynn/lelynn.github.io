@@ -1,10 +1,3 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
-
 # Site language
 lang: en-US
 
@@ -15,18 +8,18 @@ title: "Lynn Le"
 description: "Multidisciplinary AI engineer"
 
 # The subpath of your site, e.g. /blog, for generating urls.
-baseurl: ""
+baseurl: ""  # Make sure baseurl is empty if you're deploying to the root
 
 # The base hostname & protocol of your site for where absolute urls are needed.
-url: "https://scriptor-jekyll.netlify.com"
+url: "https://lynnle.com"  # Update this to your live site URL
 
 # Favicon
-favicon: images/favicon.ico
+favicon: /assets/img/favicon.ico  # Ensure this path is correct
 
 # Google Analytics id, e.g. "UA-NNNNNNNN-N"
 google_analytics: ""
 
-# Site navigation - each item must have a title and a url.
+# Site navigation - each item must have a title and a URL.
 navigation:
   - text: Home
     url: /
@@ -34,6 +27,7 @@ navigation:
     url: /projects/
   - text: Blog
     url: /blog/
+
 # The shortname for your Disqus site to enable comments.
 disqus: lynnle
 
@@ -49,10 +43,9 @@ footer:
 plugins:
   - jekyll-paginate
 
-# http://jekyllrb.com/docs/pagination/
+# Pagination
 paginate: 3
 paginate_path: '/page:num/'
-
 
 # Permalinks
 permalink: /:title
