@@ -79,7 +79,7 @@ I'm currently open to freelance, consulting, and longer-term opportunities in:
 - AI / ML research and prototyping  
 - Neuroscience-driven system design  
 
-If you're working on automatization, intelligent systems, neurotech, or new ways to combine science and AI — I’d love to hear from you.
+If you want to work on automatization, intelligent systems, neurotech, or new ways to combine science and AI; I’d love to hear from you.
 
 📫 [lynn.datalely@gmail.com](mailto:lynn.datalely@gmail.com)  
 🔗 [LinkedIn](https://linkedin.com/in/lel)
