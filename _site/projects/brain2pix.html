@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain2Pix</title>
+  <meta name="description" content="Multidisciplinary AI engineer">
+  <link rel="canonical" href="http://localhost:4000/projects/brain2pix">
+  <link rel="alternate" type="application/rss+xml" title="Lynn Le Feed"
+    href="http://localhost:4000/feed.xml">
+  
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/png" />
+  
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%7CNoto+Serif:400,400i,700,700i&display=swap" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="page" class="site">
+    <div class="inner">
+      <header class="site-header">
+  
+  <p class="site-title"><a class="logo-text" href="/">Lynn Le</a></p>
+  
+  <nav class="site-navigation">
+    <div class="site-navigation-wrap">
+      <h2 class="screen-reader-text">Main navigation</h2>
+      <ul class="menu">
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/">Home</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/Projects/">Projects</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/blog/">Blog</a>
+        </li>
+        
+      </ul><!-- .menu -->
+      <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span
+          class="icon-close" aria-hidden="true"></span></button>
+    </div><!-- .site-navigation-wrap -->
+  </nav><!-- .site-navigation -->
+  <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+</header>
+
+
+      <main class="main-content fadeInDown delay_075s">
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Brain2Pix</h1>
+      
+    </header><!-- .post-header -->
+    <div class="post-content">
+      <p><img src="/assets/img/project_brain2pix/tardis.png" alt="Brain2Pix Figure" /></p>
+
+<h1 id="abstract">Abstract</h1>
+<p>Reconstructing complex and dynamic visual perception from brain activity remains a major challenge in machine learning applications to neuroscience. Here, we present a new method for reconstructing naturalistic images and videos from very large single-participant functional magnetic resonance imaging data that leverages the recent success of image-to-image transformation networks. This is achieved by exploiting spatial information obtained from retinotopic mappings across the visual system. More specifically, we first determine what position each voxel in a particular region of interest would represent in the visual field based on its corresponding receptive field location. Then, the 2D image representation of the brain activity on the visual field is passed to a fully convolutional image-to-image network trained to recover the original stimuli using VGG feature loss with an adversarial regularizer. In our experiments, we show that our method offers a significant improvement over existing video reconstruction techniques.</p>
+
+<h2 id="results">Results</h2>
+
+<p><b>Main results – FixedRF (test set):</b></p>
+
+<p><code class="highlighter-rouge">---[input] --- [rec] --- [stimuli] </code></p>
+
+<p><img src="/assets/img/project_brain2pix/recons_fixed_of_all_frames_as_video_a.gif" alt="fixedRF_a" /></p>
+
+<p><img src="/assets/img/project_brain2pix/recons_fixed_of_all_frames_as_video_b.gif" alt="fixedRF_b" /></p>
+
+<p><img src="/assets/img/project_brain2pix/recons_fixed_of_all_frames_as_video_c.gif" alt="fixedRF_c" /></p>
+
+<h2 id="paper--repository">Paper + Repository</h2>
+
+<p><a href="https://www.frontiersin.org/articles/10.3389/fnins.2022.940972/full">Click 📚</a> for the published paper.</p>
+
+<p><a href="https://github.com/neuralcodinglab/brain2pix">Click 💻</a> for the source code / github repository.</p>
+
+<p>Thank you!</p>
+
+<h2 id="tutorial-videos">Tutorial Videos</h2>
+
+    </div><!-- .post-content -->
+  </article><!-- .post -->
+</main><!-- .site-main -->
+      <footer class="site-footer">
+  <div class="offsite-links">
+    
+      
+<a href="https://twitter.com/lynnle_ai" target="_blank" rel="noopener">
+  <span class="fa-twitter" aria-hidden="true"></span>
+  <span class="screen-reader-text">Twitter</span>
+</a>
+
+<a href="https://github.com/lelynn" target="_blank" rel="noopener">
+  <span class="fa-github" aria-hidden="true"></span>
+  <span class="screen-reader-text">GitHub</span>
+</a>
+
+<a href="https://www.instagram.com/lynnboulders" target="_blank" rel="noopener">
+  <span class="fa-instagram" aria-hidden="true"></span>
+  <span class="screen-reader-text">Instagram</span>
+</a>
+
+<a href="https://www.linkedin.com/in/lel" target="_blank" rel="noopener">
+  <span class="fa-linkedin" aria-hidden="true"></span>
+  <span class="screen-reader-text">LinkedIn</span>
+</a>
+
+    
+  </div><!-- .offsite-links -->
+  <div class="footer-bottom">
+    <div class="site-info">
+      <p>© Lynn Le. All rights reserved.</p>
+
+    </div><!-- .site-info -->
+    <a href="#page" id="back-to-top" class="back-to-top"><span class="screen-reader-text">Back to the top </span>&#8593;</a>
+  </div><!-- .footer-bottom -->
+</footer><!-- .site-footer -->
+
+    </div><!-- .inner -->
+  </div><!-- .site -->
+
+  <!-- Scripts -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+  <script src="/assets/js/plugins.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogpost5| Reinforcement learning&amp;#58; Policy-based</title>
+  <meta name="description" content="Explaining the concept of policy-based learning">
+  <link rel="canonical" href="http://localhost:4000/policy-learning">
+  <link rel="alternate" type="application/rss+xml" title="Lynn Le Feed"
+    href="http://localhost:4000/feed.xml">
+  
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/png" />
+  
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%7CNoto+Serif:400,400i,700,700i&display=swap" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="page" class="site">
+    <div class="inner">
+      <header class="site-header">
+  
+  <p class="site-title"><a class="logo-text" href="/">Lynn Le</a></p>
+  
+  <nav class="site-navigation">
+    <div class="site-navigation-wrap">
+      <h2 class="screen-reader-text">Main navigation</h2>
+      <ul class="menu">
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/">Home</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/Projects/">Projects</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/blog/">Blog</a>
+        </li>
+        
+      </ul><!-- .menu -->
+      <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span
+          class="icon-close" aria-hidden="true"></span></button>
+    </div><!-- .site-navigation-wrap -->
+  </nav><!-- .site-navigation -->
+  <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+</header>
+
+
+      <main class="main-content fadeInDown delay_075s">
+
+  <article class="post">
+    <header class="post-header">
+      <time class="post-date" datetime="2019-09-16">September 16, 2019</time>
+      <h1 class="post-title">Blogpost5| Reinforcement learning&#58; Policy-based</h1>
+      <div class="post-meta">
+        By <span class="post-author">Lynn Le</span>
+      </div><!-- .post-meta -->
+      
+    </header><!-- .post-header -->
+    <div class="post-content">
+      <p>Bological entities can extract a large amount of information from binary feedback signals. Reinforcement learning (RL) is a general term for an agent that learns to act using reinforce signals (for example reward or punishment). Two important types of RL in machine learning are Deep Q-learning and policy-based RL. This post is focused on the latter.</p>
+
+<p>An agent that does policy-based RL, learns by updating the parameters of its <b>policy</b> π, which is based on the state that the agent is in and its received reward upon performing an action.</p>
+
+<p>In machine learning, the π can be seen as a differentiable function, which can be implemented with a neural network. The π receives a state as an input and in return outputs different probability scores of each action. In this post, I will focus on explaining how we can use this policy network to perform reinforcement learning.</p>
+
+<h2 id="the-environment">The environment</h2>
+<p><img width="40%" style="float: right;" src="/assets/img/blog_img/blog5/agent_plateau.JPG" /></p>
+
+<p>Imagine an agent running down a continous plateau with the aim to stay on the plateau as long as possible. At every timestep <em>t</em>, he encounters a different surrounding structure and needs to decide whether to shift himself to the right or left in order to stay “alive”. His lifespan is represented as <em>(t<sub>1</sub>, …, T)</em>. The longer he manages to survive during his run, the better his performance.</p>
+
+<h3 id="some-definitions-in-our-environment">Some definitions (in our environment)</h3>
+<ul>
+  <li>Agent: The agent interacts with its environment by performing actions in discrete time steps.</li>
+  <li>Actions <em>a<sub>t</sub></em> : The action that the agent can take at timestep <em>t</em>. At each timestep, the agent can either shift to the left, or to the right.</li>
+  <li>State <em>s<sub>t</sub></em>: The state that the agent is in at timestep <em>t</em>.</li>
+  <li>Reward <em>r<sub>t</sub></em>: The reward returned at timestep <em>t</em>.</li>
+  <li>Episode: Everytime the agent runs on the plateau to learn, it creates an episode that contains all the actions taken at every timestep.</li>
+  <li>Policy π : Is the basic neural network that predicts the probability scores of every action at each time step given a state.</li>
+</ul>
+
+<h2 id="the-learning-concept">The learning concept</h2>
+<p>Basically, the reinforcement algorithm is represented by the following equation:</p>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Cnabla%20J%28%5Ctheta%29%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5EN%5CBig%28%7B%5Csum_%7Bt%3D1%7D%5ET%7D%7B%5Cnabla_%5Ctheta%20%5Clog%7B%5Cpi_%5Ctheta%7D%28a_%7Bi%2Ct%7D%7Cs_%7Bi%2Ct%7D%29%7D%5CBig%29%20%5CBig%28%5Csum_%7Bt%3Di%7D%5ET%20r%28s_%7Bi%2Ct%7D%2C%20a_%7Bi%2Ct%7D%29%5CBig%29" alt="equation" /></p>
+
+<p>Where <em>r(s<sub>i,t</sub>,a<sub>i,t</sub>)</em> is the reward at <em>(s<sub>i,t</sub>,a<sub>i,t</sub>)</em>.</p>
+
+<p>During each episode, the agent runs on the plateau and performs some actions. After the episode, we make use of the reinforce algorithm to update the parameters of the policy network and then run it again.
+<!-- ![equation](https://latex.codecogs.com/gif.latex?%5CDelta%20%5Ctheta%20%3D%20%5Ceta%20%5Cnabla_%5Ctheta%20J%28%5Ctheta%29%29) --></p>
+
+<p>In other words, we want to optimize the parameters in such a way that maximizes the gradient of θ. This is done in three steps:</p>
+
+<ol>
+  <li>
+    <p>Run the policy network π<sub>θ</sub><em>(a<sub>t</sub>|s<sub>t</sub>)</em>  which outputs various action probability scores (τ) given a state <em>s<sub>t</sub></em> and sample a probability score τ<sup>i</sup> from the output.</p>
+  </li>
+  <li>
+    <p>Then, we want to calculate the gradient ascent:</p>
+  </li>
+</ol>
+
+<!-- $$\nabla J (\theta) \approx \sum_i \Big( \sum_t \nabla_\theta \log\pi_\theta(a_{i,t} | s_{i,t}) \Big) \Big(\sum_t r(s_{i,t}, a_{i,t})\Big)$$ -->
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Cnabla%20J%20%28%5Ctheta%29%20%5Capprox%20%5Csum_i%20%5CBig%28%20%5Csum_t%20%5Cnabla_%5Ctheta%20%5Clog%5Cpi_%5Ctheta%28a_%7Bi%2Ct%7D%20%7C%20s_%7Bi%2Ct%7D%29%20%5CBig%29%20%5CBig%28%5Csum_t%20r%28s_%7Bi%2Ct%7D%2C%20a_%7Bi%2Ct%7D%29%5CBig%29" alt="equation" /></p>
+
+<!-- 3) Then gradient asent 
+$\theta \leftarrow  \theta + \eta \nabla_ \theta J(\theta)$ -->
+
+<ol>
+  <li>To ultimately update the parameters of the policy network:</li>
+</ol>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Ctheta%20%5Cleftarrow%20%5Ctheta%20&plus;%20%5Ceta%20%5Cnabla_%20%5Ctheta%20J%28%5Ctheta%29" alt="equation" /></p>
+
+<h2 id="using-cost-to-go-to-reduce-variance">Using cost to go to reduce variance</h2>
+
+<p>So far I have explained the basic reinforcement algorithm. This explained algorithm learns by using ALL the rewards that it gets during that entire episode. Since the π<sub>t’</sub> cannot affect the rewards that occurred before <em>t</em>, it results in a high variance method of learning.</p>
+
+<p>To reduce the variance, we can make use of the future rewards after an action is performed, such that the agent performs based on future rewards only.</p>
+
+<p>This means that the reinforce algorithm becomes:</p>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Cnabla%20J%20%28%5Ctheta%29%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5EN%20%5Csum_%7Bt%3D1%7D%5ET%20%5Cnabla_%5Ctheta%20%5Clog%5Cpi_%5Ctheta%28a_%7Bi%2Ct%7D%20%7C%20s_%7Bi%2Ct%7D%29%5Chat%7BQ%7D_%7Bi%2Ct%7D" alt="equation" /></p>
+
+<p>Where the Q-hat is the ‘cost-to-go’:</p>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Chat%7BQ%7D_%7Bi%2Ct%7D%20%3D%20%5Csum_%7Bt%27%20%3D%20t%7D%5ET%20r%28s_%7Bi%2Ct%27%7D%2C%20a_%7Bi%2Ct%27%7D%29" alt="equation" /></p>
+
+<p>which is the collection of all the future rewards, after a performed action at <em>t</em>.</p>
+
+<h2 id="to-summarize">To summarize</h2>
+
+<p>For each episode, the agent gets to run on the plateau. For each timestep in the episode, the policy takes in a state, and outputs different probabilities of actions, and one action is then randomly sampled (the actions with higher probability scores have a higher probability to be sampled). This happens until the agent falls off the plateau.</p>
+
+<p>We then look at each timestep of that episode, starting at the first timestep. At the first timestep, we sum all the rewards following that timestep, and then update the policy parameters of that timestep, such that the policy output has a positive effect on the total future reward (this we call gradient ascend).</p>
+
+<p>Then for the next timestep of that same episode, we again sum its future rewards, and again the parameters of the policy network is updated based on that sum. When repeating this with many episodes, the policy output becomes more optimal at each timestep and the episodes become longer.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p>I have learned all of this material in the <a href="https://www.ru.nl/courseguides/socsci/courses-osiris/ai/sow-mki49-neural-information-processing-systems/">Neural Information Processing Systems</a> course, this year!</p>
+
+    </div><!-- .post-content -->
+    <div class="post-share">
+      <span>Share:</span>
+      <a target="_blank"
+        href="https://twitter.com/intent/tweet?text=Blogpost5%7C%20Reinforcement%20learning&#58;%20Policy-based&amp;url=http://localhost:4000/policy-learning" rel="noopener">Twitter</a>
+      <a target="_blank"
+        href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/policy-learning&amp;t=Blogpost5%7C%20Reinforcement%20learning&#58;%20Policy-based" rel="noopener">Facebook</a>
+    </div><!-- .share-post -->
+    <div class="author-box">
+      
+      <div class="author-avatar" style="background-image: url('images/profile_pic.jpg')"><span class="screen-reader-text">Lynn Le's Picture</span></div>
+      
+      <div class="author-details">
+        <h2 class="author-title">About Lynn Le</h2>
+        <div class="author-bio"><p>I’m Lynn Le, a multidisciplinary AI engineer drawing inspiration from neuroscience…</p>
+</div>
+        
+        <span class="author-location">Nijmegen, Netherlands</span>
+        
+        
+        <span class="author-website"><a href="https://lynnle.com" target="_blank" rel="noopener">https://lynnle.com</a></span>
+        
+      </div><!-- .author-details -->
+    </div><!-- .author-box -->
+  </article><!-- .post -->
+
+  
+    <div class="comments-area">
+  <div class="comments-inner">
+    <h2 class="comments-title">Comments</h2>
+    <div id="disqus_thread"></div>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+        Disqus</a>.</noscript>
+  </div><!-- .comments-inner -->
+</div><!-- .comments-area -->
+
+<script type="text/javascript">
+  var disqus_shortname = 'lynnle';
+  var disqus_developer = 0;
+  (function () {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+  
+
+</main><!-- .main-content -->
+      <footer class="site-footer">
+  <div class="offsite-links">
+    
+      
+<a href="https://twitter.com/lynnle_ai" target="_blank" rel="noopener">
+  <span class="fa-twitter" aria-hidden="true"></span>
+  <span class="screen-reader-text">Twitter</span>
+</a>
+
+<a href="https://github.com/lelynn" target="_blank" rel="noopener">
+  <span class="fa-github" aria-hidden="true"></span>
+  <span class="screen-reader-text">GitHub</span>
+</a>
+
+<a href="https://www.instagram.com/lynnboulders" target="_blank" rel="noopener">
+  <span class="fa-instagram" aria-hidden="true"></span>
+  <span class="screen-reader-text">Instagram</span>
+</a>
+
+<a href="https://www.linkedin.com/in/lel" target="_blank" rel="noopener">
+  <span class="fa-linkedin" aria-hidden="true"></span>
+  <span class="screen-reader-text">LinkedIn</span>
+</a>
+
+    
+  </div><!-- .offsite-links -->
+  <div class="footer-bottom">
+    <div class="site-info">
+      <p>© Lynn Le. All rights reserved.</p>
+
+    </div><!-- .site-info -->
+    <a href="#page" id="back-to-top" class="back-to-top"><span class="screen-reader-text">Back to the top </span>&#8593;</a>
+  </div><!-- .footer-bottom -->
+</footer><!-- .site-footer -->
+
+    </div><!-- .inner -->
+  </div><!-- .site -->
+
+  <!-- Scripts -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+  <script src="/assets/js/plugins.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+</body>
+</html>

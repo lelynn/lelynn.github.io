@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogpost7| Running Jupyter lab/notebook remotely</title>
+  <meta name="description" content="Multidisciplinary AI engineer">
+  <link rel="canonical" href="http://localhost:4000/forward-porting-jupyter">
+  <link rel="alternate" type="application/rss+xml" title="Lynn Le Feed"
+    href="http://localhost:4000/feed.xml">
+  
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/png" />
+  
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%7CNoto+Serif:400,400i,700,700i&display=swap" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="page" class="site">
+    <div class="inner">
+      <header class="site-header">
+  
+  <p class="site-title"><a class="logo-text" href="/">Lynn Le</a></p>
+  
+  <nav class="site-navigation">
+    <div class="site-navigation-wrap">
+      <h2 class="screen-reader-text">Main navigation</h2>
+      <ul class="menu">
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/">Home</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/Projects/">Projects</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/blog/">Blog</a>
+        </li>
+        
+      </ul><!-- .menu -->
+      <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span
+          class="icon-close" aria-hidden="true"></span></button>
+    </div><!-- .site-navigation-wrap -->
+  </nav><!-- .site-navigation -->
+  <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+</header>
+
+
+      <main class="main-content fadeInDown delay_075s">
+
+  <article class="post">
+    <header class="post-header">
+      <time class="post-date" datetime="2022-12-10">December 10, 2022</time>
+      <h1 class="post-title">Blogpost7| Running Jupyter lab/notebook remotely</h1>
+      <div class="post-meta">
+        By <span class="post-author">Lynn Le</span>
+      </div><!-- .post-meta -->
+      
+    </header><!-- .post-header -->
+    <div class="post-content">
+      <h2 id="introduction">Introduction</h2>
+<p>Hello! In this post, I will show you how to run JupyterNotebook or JupyterLab on any server that you have ssh access to. I really like this method because it allows me to work and debug on the server without lag, especially when I have to work with large datasets and complex models. All you need is a terminal and a browser!</p>
+
+<h2 id="step-by-step-guide">Step-by-step guide</h2>
+<ol>
+  <li>First you need to ssh to your remote server by running the following from your laptop
+  <code class="highlighter-rouge">ssh usrname@ip.address</code></li>
+  <li>One you’re in the server, make sure that <b>jupyter is installed</b>. You can use <a href="https://github.com/jupyterlab/jupyterlab">this documentation</a> to install JupyterLab or <a href="https://docs.jupyter.org/en/latest/install/notebook-classic.html">this documention</a> for JupyterNotebook.</li>
+  <li>Once you have it installed, <code class="highlighter-rouge">cd</code> towards the directory that you want to work in. Then run the following command in the terminal of the remote server:
+ <code class="highlighter-rouge">jupyter lab --no-browser --port ####</code>
+ You can replace the port numner (<code class="highlighter-rouge">####</code>) with any desired number that is not already in use, for instance here I use 8880. Then the terminal should output something like this:
+    <p align="center">
+ <img src="/assets/img/blog_img/blog_jupyter/jupyter_lab1.png" alt="JL1" width="700" /> 
+ </p>
+  </li>
+  <li>
+    <p>Then you open a new tab in your terminal on your laptop and run the following command: 
+    <code class="highlighter-rouge">ssh -N -f -L localhost:####:localhost:#### usrname@ip.address</code>
+    Where <code class="highlighter-rouge">####</code> is the portnumber (so it can be 8880), and <code class="highlighter-rouge">usrname@ip.address</code> are the credentials that you use to log into the server.</p>
+  </li>
+  <li>
+    <p>Once you run that, you can copy the link in your terminal from step 2 and paste it in your browser. Or paste <code class="highlighter-rouge">http://localhost:8880/lab</code>. Now you should be redirected to JupyterLab!</p>
+
+    <p align="center">
+ <img src="/assets/img/blog_img/blog_jupyter/jupyter_lab2.png" alt="JL2" width="700" /> 
+ </p>
+  </li>
+</ol>
+
+<p>Hope this was helpful :)</p>
+
+    </div><!-- .post-content -->
+    <div class="post-share">
+      <span>Share:</span>
+      <a target="_blank"
+        href="https://twitter.com/intent/tweet?text=Blogpost7%7C%20Running%20Jupyter%20lab/notebook%20remotely&amp;url=http://localhost:4000/forward-porting-jupyter" rel="noopener">Twitter</a>
+      <a target="_blank"
+        href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/forward-porting-jupyter&amp;t=Blogpost7%7C%20Running%20Jupyter%20lab/notebook%20remotely" rel="noopener">Facebook</a>
+    </div><!-- .share-post -->
+    <div class="author-box">
+      
+      <div class="author-avatar" style="background-image: url('images/profile_pic.jpg')"><span class="screen-reader-text">Lynn Le's Picture</span></div>
+      
+      <div class="author-details">
+        <h2 class="author-title">About Lynn Le</h2>
+        <div class="author-bio"><p>I’m Lynn Le, a multidisciplinary AI engineer drawing inspiration from neuroscience…</p>
+</div>
+        
+        <span class="author-location">Nijmegen, Netherlands</span>
+        
+        
+        <span class="author-website"><a href="https://lynnle.com" target="_blank" rel="noopener">https://lynnle.com</a></span>
+        
+      </div><!-- .author-details -->
+    </div><!-- .author-box -->
+  </article><!-- .post -->
+
+  
+    <div class="comments-area">
+  <div class="comments-inner">
+    <h2 class="comments-title">Comments</h2>
+    <div id="disqus_thread"></div>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+        Disqus</a>.</noscript>
+  </div><!-- .comments-inner -->
+</div><!-- .comments-area -->
+
+<script type="text/javascript">
+  var disqus_shortname = 'lynnle';
+  var disqus_developer = 0;
+  (function () {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+  
+
+</main><!-- .main-content -->
+      <footer class="site-footer">
+  <div class="offsite-links">
+    
+      
+<a href="https://twitter.com/lynnle_ai" target="_blank" rel="noopener">
+  <span class="fa-twitter" aria-hidden="true"></span>
+  <span class="screen-reader-text">Twitter</span>
+</a>
+
+<a href="https://github.com/lelynn" target="_blank" rel="noopener">
+  <span class="fa-github" aria-hidden="true"></span>
+  <span class="screen-reader-text">GitHub</span>
+</a>
+
+<a href="https://www.instagram.com/lynnboulders" target="_blank" rel="noopener">
+  <span class="fa-instagram" aria-hidden="true"></span>
+  <span class="screen-reader-text">Instagram</span>
+</a>
+
+<a href="https://www.linkedin.com/in/lel" target="_blank" rel="noopener">
+  <span class="fa-linkedin" aria-hidden="true"></span>
+  <span class="screen-reader-text">LinkedIn</span>
+</a>
+
+    
+  </div><!-- .offsite-links -->
+  <div class="footer-bottom">
+    <div class="site-info">
+      <p>© Lynn Le. All rights reserved.</p>
+
+    </div><!-- .site-info -->
+    <a href="#page" id="back-to-top" class="back-to-top"><span class="screen-reader-text">Back to the top </span>&#8593;</a>
+  </div><!-- .footer-bottom -->
+</footer><!-- .site-footer -->
+
+    </div><!-- .inner -->
+  </div><!-- .site -->
+
+  <!-- Scripts -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+  <script src="/assets/js/plugins.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Lynn Le</title>
+        <description>Multidisciplinary AI engineer</description>
+        <link>http://localhost:4000/</link>
+        <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Mon, 21 Apr 2025 19:45:15 +0200</pubDate>
+        <lastBuildDate>Mon, 21 Apr 2025 19:45:15 +0200</lastBuildDate>
+        <generator>Jekyll v4.0.1</generator>
+        
+            <item>
+                <title>Welcome to my new updated site!</title>
+                <description>&lt;p&gt;It was about time I updated my website ;)&lt;/p&gt;
+
+&lt;p&gt;More coming sooon.&lt;/p&gt;
+</description>
+                <pubDate>Mon, 21 Apr 2025 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/new-website</link>
+                <guid isPermaLink="true">http://localhost:4000/new-website</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost7| Running Jupyter lab/notebook remotely</title>
+                <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Hello! In this post, I will show you how to run JupyterNotebook or JupyterLab on any server that you have ssh access to. I really like this method because it allows me to work and debug on the server without lag, especially when I have to work with large datasets and complex models. All you need is a terminal and a browser!&lt;/p&gt;
+
+&lt;h2 id=&quot;step-by-step-guide&quot;&gt;Step-by-step guide&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;First you need to ssh to your remote server by running the following from your laptop
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh usrname@ip.address&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;One you’re in the server, make sure that &lt;b&gt;jupyter is installed&lt;/b&gt;. You can use &lt;a href=&quot;https://github.com/jupyterlab/jupyterlab&quot;&gt;this documentation&lt;/a&gt; to install JupyterLab or &lt;a href=&quot;https://docs.jupyter.org/en/latest/install/notebook-classic.html&quot;&gt;this documention&lt;/a&gt; for JupyterNotebook.&lt;/li&gt;
+  &lt;li&gt;Once you have it installed, &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; towards the directory that you want to work in. Then run the following command in the terminal of the remote server:
+ &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter lab --no-browser --port ####&lt;/code&gt;
+ You can replace the port numner (&lt;code class=&quot;highlighter-rouge&quot;&gt;####&lt;/code&gt;) with any desired number that is not already in use, for instance here I use 8880. Then the terminal should output something like this:
+    &lt;p align=&quot;center&quot;&gt;
+ &lt;img src=&quot;/assets/img/blog_img/blog_jupyter/jupyter_lab1.png&quot; alt=&quot;JL1&quot; width=&quot;700&quot; /&gt; 
+ &lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then you open a new tab in your terminal on your laptop and run the following command: 
+    &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -N -f -L localhost:####:localhost:#### usrname@ip.address&lt;/code&gt;
+    Where &lt;code class=&quot;highlighter-rouge&quot;&gt;####&lt;/code&gt; is the portnumber (so it can be 8880), and &lt;code class=&quot;highlighter-rouge&quot;&gt;usrname@ip.address&lt;/code&gt; are the credentials that you use to log into the server.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once you run that, you can copy the link in your terminal from step 2 and paste it in your browser. Or paste &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8880/lab&lt;/code&gt;. Now you should be redirected to JupyterLab!&lt;/p&gt;
+
+    &lt;p align=&quot;center&quot;&gt;
+ &lt;img src=&quot;/assets/img/blog_img/blog_jupyter/jupyter_lab2.png&quot; alt=&quot;JL2&quot; width=&quot;700&quot; /&gt; 
+ &lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Hope this was helpful :)&lt;/p&gt;
+</description>
+                <pubDate>Sat, 10 Dec 2022 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/forward-porting-jupyter</link>
+                <guid isPermaLink="true">http://localhost:4000/forward-porting-jupyter</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost7| Dog API</title>
+                <description>&lt;p&gt;Dogs!&lt;/p&gt;
+
+&lt;div class=&quot;dog&quot;&gt;&lt;/div&gt;
+
+&lt;script src=&quot;https://code.jquery.com/jquery-3.5.1.min.js&quot; integrity=&quot;sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+$( document ).ready( function() {
+  load_image();
+  $( &apos;.dog&apos; ).click( function() {
+    load_image();
+  } );
+} );
+
+function load_image() {
+  $.get( {
+    url: &apos;https://random.dog/woof.json&apos;,
+    success: function (result) {
+      if ( result.url.indexOf(&apos;.mp4&apos;) &gt;= 0) {
+        $(&apos;.dog&apos;).html(&apos;&lt;video style=&quot;max-width:100%;&quot; src=&quot;&apos; + result.url + &apos;&quot;&gt;&lt;/video&gt;&apos;);
+      } else {
+        $(&apos;.dog&apos;).html(&apos;&lt;img style=&quot;max-width:100%;&quot; src=&quot;&apos; + result.url + &apos;&quot;&gt;&apos;);
+      }
+    }
+  } );
+}
+&lt;/script&gt;
+
+</description>
+                <pubDate>Sat, 22 Aug 2020 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/dogs</link>
+                <guid isPermaLink="true">http://localhost:4000/dogs</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost6| A simple game</title>
+                <description>&lt;p&gt;Hi! I made a simple game using Unity and C#. To start playing it, please press enter :D&lt;/p&gt;
+
+&lt;div style=&quot;width: 1000px; height: 632px; overflow: hidden&quot;&gt;
+&lt;iframe src=&quot;https://lynnle.com/BreakoutGame-pixels/&quot; style=&quot;border:0px #000000 none;&quot; name=&quot;Avocado&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;px&quot; marginwidth=&quot;320px&quot; height=&quot;750px&quot; width=&quot;1000px&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+                <pubDate>Tue, 25 Feb 2020 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/developing-a-simple-game</link>
+                <guid isPermaLink="true">http://localhost:4000/developing-a-simple-game</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost5| Reinforcement learning&amp;#58; Policy-based</title>
+                <description>&lt;p&gt;Bological entities can extract a large amount of information from binary feedback signals. Reinforcement learning (RL) is a general term for an agent that learns to act using reinforce signals (for example reward or punishment). Two important types of RL in machine learning are Deep Q-learning and policy-based RL. This post is focused on the latter.&lt;/p&gt;
+
+&lt;p&gt;An agent that does policy-based RL, learns by updating the parameters of its &lt;b&gt;policy&lt;/b&gt; π, which is based on the state that the agent is in and its received reward upon performing an action.&lt;/p&gt;
+
+&lt;p&gt;In machine learning, the π can be seen as a differentiable function, which can be implemented with a neural network. The π receives a state as an input and in return outputs different probability scores of each action. In this post, I will focus on explaining how we can use this policy network to perform reinforcement learning.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-environment&quot;&gt;The environment&lt;/h2&gt;
+&lt;p&gt;&lt;img width=&quot;40%&quot; style=&quot;float: right;&quot; src=&quot;/assets/img/blog_img/blog5/agent_plateau.JPG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine an agent running down a continous plateau with the aim to stay on the plateau as long as possible. At every timestep &lt;em&gt;t&lt;/em&gt;, he encounters a different surrounding structure and needs to decide whether to shift himself to the right or left in order to stay “alive”. His lifespan is represented as &lt;em&gt;(t&lt;sub&gt;1&lt;/sub&gt;, …, T)&lt;/em&gt;. The longer he manages to survive during his run, the better his performance.&lt;/p&gt;
+
+&lt;h3 id=&quot;some-definitions-in-our-environment&quot;&gt;Some definitions (in our environment)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Agent: The agent interacts with its environment by performing actions in discrete time steps.&lt;/li&gt;
+  &lt;li&gt;Actions &lt;em&gt;a&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt; : The action that the agent can take at timestep &lt;em&gt;t&lt;/em&gt;. At each timestep, the agent can either shift to the left, or to the right.&lt;/li&gt;
+  &lt;li&gt;State &lt;em&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt;: The state that the agent is in at timestep &lt;em&gt;t&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Reward &lt;em&gt;r&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt;: The reward returned at timestep &lt;em&gt;t&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Episode: Everytime the agent runs on the plateau to learn, it creates an episode that contains all the actions taken at every timestep.&lt;/li&gt;
+  &lt;li&gt;Policy π : Is the basic neural network that predicts the probability scores of every action at each time step given a state.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-learning-concept&quot;&gt;The learning concept&lt;/h2&gt;
+&lt;p&gt;Basically, the reinforcement algorithm is represented by the following equation:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://latex.codecogs.com/gif.latex?%5Cnabla%20J%28%5Ctheta%29%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5EN%5CBig%28%7B%5Csum_%7Bt%3D1%7D%5ET%7D%7B%5Cnabla_%5Ctheta%20%5Clog%7B%5Cpi_%5Ctheta%7D%28a_%7Bi%2Ct%7D%7Cs_%7Bi%2Ct%7D%29%7D%5CBig%29%20%5CBig%28%5Csum_%7Bt%3Di%7D%5ET%20r%28s_%7Bi%2Ct%7D%2C%20a_%7Bi%2Ct%7D%29%5CBig%29&quot; alt=&quot;equation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Where &lt;em&gt;r(s&lt;sub&gt;i,t&lt;/sub&gt;,a&lt;sub&gt;i,t&lt;/sub&gt;)&lt;/em&gt; is the reward at &lt;em&gt;(s&lt;sub&gt;i,t&lt;/sub&gt;,a&lt;sub&gt;i,t&lt;/sub&gt;)&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;During each episode, the agent runs on the plateau and performs some actions. After the episode, we make use of the reinforce algorithm to update the parameters of the policy network and then run it again.
+&lt;!-- ![equation](https://latex.codecogs.com/gif.latex?%5CDelta%20%5Ctheta%20%3D%20%5Ceta%20%5Cnabla_%5Ctheta%20J%28%5Ctheta%29%29) --&gt;&lt;/p&gt;
+
+&lt;p&gt;In other words, we want to optimize the parameters in such a way that maximizes the gradient of θ. This is done in three steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Run the policy network π&lt;sub&gt;θ&lt;/sub&gt;&lt;em&gt;(a&lt;sub&gt;t&lt;/sub&gt;|s&lt;sub&gt;t&lt;/sub&gt;)&lt;/em&gt;  which outputs various action probability scores (τ) given a state &lt;em&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt; and sample a probability score τ&lt;sup&gt;i&lt;/sup&gt; from the output.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then, we want to calculate the gradient ascent:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- $$\nabla J (\theta) \approx \sum_i \Big( \sum_t \nabla_\theta \log\pi_\theta(a_{i,t} | s_{i,t}) \Big) \Big(\sum_t r(s_{i,t}, a_{i,t})\Big)$$ --&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://latex.codecogs.com/gif.latex?%5Cnabla%20J%20%28%5Ctheta%29%20%5Capprox%20%5Csum_i%20%5CBig%28%20%5Csum_t%20%5Cnabla_%5Ctheta%20%5Clog%5Cpi_%5Ctheta%28a_%7Bi%2Ct%7D%20%7C%20s_%7Bi%2Ct%7D%29%20%5CBig%29%20%5CBig%28%5Csum_t%20r%28s_%7Bi%2Ct%7D%2C%20a_%7Bi%2Ct%7D%29%5CBig%29&quot; alt=&quot;equation&quot; /&gt;&lt;/p&gt;
+
+&lt;!-- 3) Then gradient asent 
+$\theta \leftarrow  \theta + \eta \nabla_ \theta J(\theta)$ --&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To ultimately update the parameters of the policy network:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://latex.codecogs.com/gif.latex?%5Ctheta%20%5Cleftarrow%20%5Ctheta%20&amp;plus;%20%5Ceta%20%5Cnabla_%20%5Ctheta%20J%28%5Ctheta%29&quot; alt=&quot;equation&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;using-cost-to-go-to-reduce-variance&quot;&gt;Using cost to go to reduce variance&lt;/h2&gt;
+
+&lt;p&gt;So far I have explained the basic reinforcement algorithm. This explained algorithm learns by using ALL the rewards that it gets during that entire episode. Since the π&lt;sub&gt;t’&lt;/sub&gt; cannot affect the rewards that occurred before &lt;em&gt;t&lt;/em&gt;, it results in a high variance method of learning.&lt;/p&gt;
+
+&lt;p&gt;To reduce the variance, we can make use of the future rewards after an action is performed, such that the agent performs based on future rewards only.&lt;/p&gt;
+
+&lt;p&gt;This means that the reinforce algorithm becomes:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://latex.codecogs.com/gif.latex?%5Cnabla%20J%20%28%5Ctheta%29%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5EN%20%5Csum_%7Bt%3D1%7D%5ET%20%5Cnabla_%5Ctheta%20%5Clog%5Cpi_%5Ctheta%28a_%7Bi%2Ct%7D%20%7C%20s_%7Bi%2Ct%7D%29%5Chat%7BQ%7D_%7Bi%2Ct%7D&quot; alt=&quot;equation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Where the Q-hat is the ‘cost-to-go’:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://latex.codecogs.com/gif.latex?%5Chat%7BQ%7D_%7Bi%2Ct%7D%20%3D%20%5Csum_%7Bt%27%20%3D%20t%7D%5ET%20r%28s_%7Bi%2Ct%27%7D%2C%20a_%7Bi%2Ct%27%7D%29&quot; alt=&quot;equation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;which is the collection of all the future rewards, after a performed action at &lt;em&gt;t&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;to-summarize&quot;&gt;To summarize&lt;/h2&gt;
+
+&lt;p&gt;For each episode, the agent gets to run on the plateau. For each timestep in the episode, the policy takes in a state, and outputs different probabilities of actions, and one action is then randomly sampled (the actions with higher probability scores have a higher probability to be sampled). This happens until the agent falls off the plateau.&lt;/p&gt;
+
+&lt;p&gt;We then look at each timestep of that episode, starting at the first timestep. At the first timestep, we sum all the rewards following that timestep, and then update the policy parameters of that timestep, such that the policy output has a positive effect on the total future reward (this we call gradient ascend).&lt;/p&gt;
+
+&lt;p&gt;Then for the next timestep of that same episode, we again sum its future rewards, and again the parameters of the policy network is updated based on that sum. When repeating this with many episodes, the policy output becomes more optimal at each timestep and the episodes become longer.&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+
+&lt;p&gt;I have learned all of this material in the &lt;a href=&quot;https://www.ru.nl/courseguides/socsci/courses-osiris/ai/sow-mki49-neural-information-processing-systems/&quot;&gt;Neural Information Processing Systems&lt;/a&gt; course, this year!&lt;/p&gt;
+</description>
+                <pubDate>Mon, 16 Sep 2019 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/policy-learning</link>
+                <guid isPermaLink="true">http://localhost:4000/policy-learning</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost4| Making an ensemble of models</title>
+                <description>&lt;h1 id=&quot;trained-models&quot;&gt;Trained models&lt;/h1&gt;
+&lt;p&gt;The pretrained models that I used (&lt;a href=&quot;https://pytorch.org/docs/stable/torchvision/models.html&quot; target=&quot;\_blank&quot;&gt;models provided by PyTorch&lt;/a&gt;) all contained linear layers as last layers. I replaced these layers with convolutional layers since I do not want to loose spatial information when predicting my outputs. Additionally I had a self-made deep neural network which consisted of residual blocks and deconvolution layers. I then trained the models separately and ended up having 7 models that performed well.&lt;/p&gt;
+
+&lt;h1 id=&quot;ensembling-the-models&quot;&gt;Ensembling the models&lt;/h1&gt;
+
+&lt;p&gt;In order to make a supermodel in PyTorch, we first have to make instances of every model classes. Since we have 7 quite large models, I made a separate file containing all the model classes, and named in &lt;code class=&quot;highlighter-rouge&quot;&gt;all7models.py&lt;/code&gt;. First I need to import all necessary things:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch.nn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torchvision.models&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch.nn.functional&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- ![imports](/assets/img/blog_img/blog4/imports1.png){:width=&quot;100%&quot;} --&gt;
+
+&lt;p&gt;Then all the different classes of models that were trained. Here is ana exmaple of the AlexNet model (1 out of 7):&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#   ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#   :   A l e x N e t                                                                        
+#   ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AlexNet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AlexNet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alexnet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alexnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pretrained&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;convout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sequential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Upsample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Conv2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kernel_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BatchNorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReLU&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Upsample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Conv2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kernel_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BatchNorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReLU&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Upsample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Conv2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kernel_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alexnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;features&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;convout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sigmoid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- ![AlexNet](/assets/img/blog_img/blog4/AlexNetInstance.png &quot;AlexNet&quot;){:width=&quot;100%&quot;} --&gt;
+
+&lt;p&gt;I used the pretrained model from &lt;code class=&quot;highlighter-rouge&quot;&gt;torchvision.models.alexnet(pretrained=True)&lt;/code&gt; and then replace the last layers with a sequentual layer containing upsampling, convolutional, batchnormalization and rectified linear unit layers to ultimately obtain an output of my desired dimensions. The layers that were replaced with the sequential layer were selected based on their outsize, meaning I only ended up using pretrained layers that kept the images at large enough dimensions (again, to keep enough spatia information). I did this with every model and found that they predicted nice outputs.&lt;/p&gt;
+
+&lt;p&gt;Anyways, when all the instances of the models are made, the instance of the ensemble can be made. This is a class that initializes all the instances of the models. For PyTorch, it is done like this:&lt;/p&gt;
+
+&lt;!-- ![Ensemble](/assets/img/blog_img/blog4/EnsembleInstance.png &quot;Ensemble&quot;){:width=&quot;100%&quot;} --&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyFinalEnsemble_cpu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyFinalEnsemble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+        This is the ensemble of the SuperModel that is built up of the models (with some having shorter amount of iterations than 50). 
+        The AlexNet 100x, the DenseNet 100x, InceptionV3 100x, ResDeconv 30x, ResNet 100x, SqueezeNet 25x, and VGG 19x.&quot;&quot;&quot;&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alexnet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AlexNet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alexnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/AlexNet/AlexNet100ep_48x64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;densenet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DenseNet201&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;densenet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/DenseNet201/DenseNet100ep_48x64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inceptionv3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InceptionV3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inceptionv3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/InceptionV3/InceptionV3_100ep_48x64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resdeconv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResblocksDeconv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resdeconv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/ResDeconv/ResDeconv30ep_48x64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resnet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResNet152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/ResNet152/ResNet152_100ep_48x64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;squeezenet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SqueezeNet1_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;squeezenet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/SqueezeNet/SqueezeNet25ep_48x64&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vgg19&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VGG19BN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vgg19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;final_runs_48x64/VGG19BN/VGG19BN18ep&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cpu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+        
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alexnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;densenet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inceptionv3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resdeconv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x6&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;squeezenet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x7&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vgg19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;initializing-the-ensemble&quot;&gt;Initializing the ensemble&lt;/h1&gt;
+&lt;p&gt;So now that the instances of the models and the the final ensemble are made, the &lt;code class=&quot;highlighter-rouge&quot;&gt;all7models.py&lt;/code&gt; is complete and ready to be used.&lt;/p&gt;
+
+&lt;p&gt;In a separate file (I used a jupyter notebook file) in the same directory, I can do:&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;all7models&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then I can initialize the ensemble like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all7models&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyFinalEnsemble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cuda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- 
+![Initialize](/assets/img/blog_img/blog4/InitEnsem.png &quot;initialize&quot;){:width=&quot;100%&quot;} --&gt;
+
+&lt;p&gt;And then the model can be used to predict!!&lt;/p&gt;
+</description>
+                <pubDate>Wed, 08 May 2019 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/making-an-ensemble-of-models</link>
+                <guid isPermaLink="true">http://localhost:4000/making-an-ensemble-of-models</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost3| Happy creatures</title>
+                <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/assets/img/blog_img/dogs/dogjoke.jpg&quot; alt=&quot;&quot; title=&quot;DogJoke&quot; height=&quot;70%&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;dogs&quot;&gt;DOGS!!!&lt;/h1&gt;
+
+&lt;blockquote class=&quot;instagram-media&quot; data-instgrm-captioned=&quot;&quot; data-instgrm-permalink=&quot;https://www.instagram.com/p/B9A-mbaheNf/?utm_source=ig_embed&amp;amp;utm_campaign=loading&quot; data-instgrm-version=&quot;12&quot; style=&quot; background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);&quot;&gt;&lt;div style=&quot;padding:16px;&quot;&gt; &lt;a href=&quot;https://www.instagram.com/p/B9A-mbaheNf/?utm_source=ig_embed&amp;amp;utm_campaign=loading&quot; style=&quot; background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;&quot; target=&quot;_blank&quot;&gt; &lt;div style=&quot; display: flex; flex-direction: row; align-items: center;&quot;&gt; &lt;div style=&quot;background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;&quot;&gt;&lt;/div&gt; &lt;div style=&quot;display: flex; flex-direction: column; flex-grow: 1; justify-content: center;&quot;&gt; &lt;div style=&quot; background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;&quot;&gt;&lt;/div&gt; &lt;div style=&quot; background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;padding: 19% 0;&quot;&gt;&lt;/div&gt; &lt;div style=&quot;display:block; height:50px; margin:0 auto 12px; width:50px;&quot;&gt;&lt;svg width=&quot;50px&quot; height=&quot;50px&quot; viewBox=&quot;0 0 60 60&quot; version=&quot;1.1&quot; xmlns=&quot;https://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;https://www.w3.org/1999/xlink&quot;&gt;&lt;g stroke=&quot;none&quot; stroke-width=&quot;1&quot; fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;g transform=&quot;translate(-511.000000, -20.000000)&quot; fill=&quot;#000000&quot;&gt;&lt;g&gt;&lt;path d=&quot;M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631&quot;&gt;&lt;/path&gt;&lt;/g&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div style=&quot;padding-top: 8px;&quot;&gt; &lt;div style=&quot; color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;&quot;&gt; View this post on Instagram&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;padding: 12.5% 0;&quot;&gt;&lt;/div&gt; &lt;div style=&quot;display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;&quot;&gt;&lt;div&gt; &lt;div style=&quot;background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);&quot;&gt;&lt;/div&gt; &lt;div style=&quot;background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;&quot;&gt;&lt;/div&gt; &lt;div style=&quot;background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-left: 8px;&quot;&gt; &lt;div style=&quot; background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;&quot;&gt;&lt;/div&gt; &lt;div style=&quot; width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-left: auto;&quot;&gt; &lt;div style=&quot; width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);&quot;&gt;&lt;/div&gt; &lt;div style=&quot; background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);&quot;&gt;&lt;/div&gt; &lt;div style=&quot; width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/a&gt; &lt;p style=&quot; margin:8px 0 0 0; padding:0 4px;&quot;&gt; &lt;a href=&quot;https://www.instagram.com/p/B9A-mbaheNf/?utm_source=ig_embed&amp;amp;utm_campaign=loading&quot; style=&quot; color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;&quot; target=&quot;_blank&quot;&gt;“The master of balance is back 🌟😎” - 📹 @kes_theincredible . // It&amp;#39;s the most difficult trick for Kes so far! She always does everything as fast as possible and doesn&amp;#39;t know the word &amp;#34;slow&amp;#34;. Mix of selfcontrol and slow steps made it possible ❤ // - #barked #dog #doggo #Toller #NovaScotiaDuckTollingRetriever #NSDTR&lt;/a&gt;&lt;/p&gt; &lt;p style=&quot; color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;&quot;&gt;A post shared by &lt;a href=&quot;https://www.instagram.com/barked/?utm_source=ig_embed&amp;amp;utm_campaign=loading&quot; style=&quot; color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;&quot; target=&quot;_blank&quot;&gt; Barked by 9GAG | Dog community&lt;/a&gt; (@barked) on &lt;time style=&quot; font-family:Arial,sans-serif; font-size:14px; line-height:17px;&quot; datetime=&quot;2020-02-26T03:38:30+00:00&quot;&gt;Feb 25, 2020 at 7:38pm PST&lt;/time&gt;&lt;/p&gt;&lt;/div&gt;&lt;/blockquote&gt;
+&lt;script async=&quot;&quot; src=&quot;//www.instagram.com/embed.js&quot;&gt;&lt;/script&gt;
+
+&lt;div class=&quot;img_row&quot;&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/oslo.jpeg&quot; alt=&quot;&quot; title=&quot;Oslo&quot; /&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/oslo1.jpeg&quot; alt=&quot;&quot; title=&quot;Oslo&quot; /&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/corgi.jpeg&quot; alt=&quot;&quot; title=&quot;Corgi&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;img_row&quot;&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/noa.jpeg&quot; alt=&quot;&quot; title=&quot;Noah&quot; /&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/noa1.jpeg&quot; alt=&quot;&quot; title=&quot;Noah&quot; /&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/noa2.jpg&quot; alt=&quot;&quot; title=&quot;Noah&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;img_row&quot;&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/henry1.png&quot; alt=&quot;&quot; title=&quot;Henry&quot; /&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/henry2.jpg&quot; alt=&quot;&quot; title=&quot;Henry&quot; /&gt;
+    &lt;img class=&quot;col one left&quot; src=&quot;/assets/img/blog_img/dogs/henry3.jpg&quot; alt=&quot;&quot; title=&quot;Henry&quot; /&gt;
+&lt;/div&gt;
+
+</description>
+                <pubDate>Tue, 07 May 2019 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/happy-creatures</link>
+                <guid isPermaLink="true">http://localhost:4000/happy-creatures</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost2| My experience with Ubuntu for cuda and cupy</title>
+                <description>&lt;h1 id=&quot;installing-ubuntu&quot;&gt;Installing Ubuntu&lt;/h1&gt;
+
+&lt;p&gt;Since I have an nvidia GPU on my macbook pro, I have decided that I wanted to install Ubuntu. This would allow me to run Cupy and use the GPU for neural networks while using the Chainer framework.&lt;/p&gt;
+
+&lt;h3 id=&quot;first-time-installing&quot;&gt;First time installing&lt;/h3&gt;
+
+&lt;p&gt;After following a tutorial online on how to partition my harddrive and install ubuntu on my macbook properly, I was super happy to see this when booting up:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog_img/ubuntu_loader.png&quot; alt=&quot;ubuntu image&quot; title=&quot;Ubuntu loader&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So my ultimate goal was to use cupy, which is supported by cuda 10.0 (or older), and cuda 10.0 or older is supported by Ubunutu 18.04.1 (or older). I didn’t know this so I first installed the newest Ubuntu 18.04.2 and then after a while found out I couldn’t install cuda 10.0 properly. This is because on the &lt;a href=&quot;https://docs.nvidia.com/cuda/archive/10.0/&quot; target=&quot;\_blank&quot;&gt;cuda 10.0 installation guide&lt;/a&gt;, it says I needed the kernel version 14.15.0 (and I had 124.18.0). I tried different things to fix this problem (such as changing the kernel version to an older version) before I finally resolved to reinstalling an older Ubuntu.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Pretty much, I installed the wrong version of Ubuntu!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;When I installed &lt;a href=&quot;https://www.ubuntu.com/#download&quot; target=&quot;\_blank&quot;&gt;Ubuntu&lt;/a&gt; from it’s home page it was 18.04. Little did I know that I needed 18.04.1 instead of 18.04.2! So yes, I decided to reinstall.&lt;/p&gt;
+
+&lt;h3 id=&quot;second-time-installing&quot;&gt;Second time installing&lt;/h3&gt;
+
+&lt;p&gt;The second time I installed Ubuntu, I specifically chose the 18.04.2 version and finally was able to install cuda 10.0. However, I thought to myself, I wonder how it would look like if I changed my screen resolution… Since I had an extra screen connected, I decided to play around with the different resolution possibilities.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Turns out changing the screen resolution made my whole screen black… and then green!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog_img/green_screen.jpg&quot; alt=&quot;alt text&quot; title=&quot;Green screen&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Everytime I rebooted it turned completely black and green on both screens :’( I googled everywhere and tried all possible solutions that were offered on Stackoverflow. I was able to access the root terminal but still, but still nothing worked. I decided to install Ubuntu once again.&lt;/p&gt;
+
+&lt;h3 id=&quot;third-time-is-the-charm&quot;&gt;Third time is the charm&lt;/h3&gt;
+
+&lt;p&gt;I WAS SO ANNOYED AT THIS POINT. I started questioning whether I even still wanted to use Chainer anymore, perhaps it is easier to rewrite all my codes to PyTorch.. (probably it was and still is a good idea). But I thought, this is a good way to learn things. Besides, I already have put some time in this, might as well finish the job… So finally.. the third time installing Ubuntu, everything works. I was able to install cuda properly, and then cupy and then everything else. It was a relieving moment, to see I was able to import cupy into python.&lt;/p&gt;
+
+&lt;h3 id=&quot;until&quot;&gt;UNTIL…&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;OUT OF MEMORRY!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog_img/out_of_memory.png&quot; alt=&quot;alt text&quot; title=&quot;Out of memory&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Until I realized my model architecture is way too heavy for my tiny GPU… OUT OF MEMORY!!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog_img/cryface.jpg&quot; alt=&quot;alt text&quot; title=&quot;sadface&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Well…. I guess I cannot do much about this. It is nice to know how to use my GPU I guess.. And perhaps one day I should buy an external GPU.. but they’re not cheap.&lt;/p&gt;
+
+&lt;h3 id=&quot;lessons-learned&quot;&gt;Lessons learned&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Think twice or three times before installing the latest version of everything.&lt;/li&gt;
+  &lt;li&gt;Dont just change your screen resolution on ubuntu.&lt;/li&gt;
+  &lt;li&gt;Everything you do you can learn from.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now that I have let out my frustrations on this blog, I would like to thank whomever is reading this for listening (probably nobody). This was very therapeutical to write.&lt;/p&gt;
+</description>
+                <pubDate>Thu, 07 Mar 2019 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/my-experience-with-installing-ubuntu</link>
+                <guid isPermaLink="true">http://localhost:4000/my-experience-with-installing-ubuntu</guid>
+                
+                
+            </item>
+        
+            <item>
+                <title>Blogpost1| My planning</title>
+                <description>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;date&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;wk&lt;/th&gt;
+      &lt;th&gt;task&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;status&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;b&gt;February&lt;/b&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;02.12/02.18&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w1&lt;/td&gt;
+      &lt;td&gt;Complete adversarial images + eyetracking experiment code&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;02.18/02.25&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w2&lt;/td&gt;
+      &lt;td&gt;Set up experiment with the lab&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;02.25/03.04&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w3&lt;/td&gt;
+      &lt;td&gt;Collect data from subjects (15p)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;b&gt;March&lt;/b&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;03.04/03.11&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w4&lt;/td&gt;
+      &lt;td&gt;Collect data from subjects (15p) + Data Analysis&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;03.11/03.18&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w5&lt;/td&gt;
+      &lt;td&gt;Collect Data Analysis&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;03.18/03.25&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w6&lt;/td&gt;
+      &lt;td&gt;Write Internship Report&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;03.25/04.01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w7&lt;/td&gt;
+      &lt;td&gt;Write Internship Report&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;b&gt;April&lt;/b&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;04.01/04.08&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w8&lt;/td&gt;
+      &lt;td&gt;Write Internship Report&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;04.08/04.15&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w9&lt;/td&gt;
+      &lt;td&gt;Write Internship Report&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;04.15/04.22&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w10&lt;/td&gt;
+      &lt;td&gt;Hand in Internship Report (v1)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;04.22/04.29&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w11&lt;/td&gt;
+      &lt;td&gt;Literature Review: Deep Learning in Neuroscience&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;b&gt;May&lt;/b&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;04.29/05.06&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w12&lt;/td&gt;
+      &lt;td&gt;Literature Review: Deep Learning in Neuroscience&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;05.06/05.13&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w13&lt;/td&gt;
+      &lt;td&gt;Literature Review: Deep Learning in Neuroscience + hand in v1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;05.13/05.20&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w14&lt;/td&gt;
+      &lt;td&gt;Literature Review: Phosphenes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;05.20/05.27&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w15&lt;/td&gt;
+      &lt;td&gt;Literature Review: Phosphenes + hand in v1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;b&gt;June&lt;/b&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;05.29/06.03&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w16&lt;/td&gt;
+      &lt;td&gt;Work on v2 of everything&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;06.03/06.10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w17&lt;/td&gt;
+      &lt;td&gt;Work on v2 of everything&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;06.10/06.17&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w18&lt;/td&gt;
+      &lt;td&gt;Hand in everything&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;06.17/07.24&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w19&lt;/td&gt;
+      &lt;td&gt;Vacation (hopefully)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;07.24/07.01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;w20&lt;/td&gt;
+      &lt;td&gt;Vacation (hopefully)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;✓&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*Update: I finished everything on time and got a 9 for my final thesis :)&lt;/p&gt;
+</description>
+                <pubDate>Mon, 11 Feb 2019 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/my-planning</link>
+                <guid isPermaLink="true">http://localhost:4000/my-planning</guid>
+                
+                
+            </item>
+        
+    </channel>
+</rss>

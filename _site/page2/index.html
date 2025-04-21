@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lynn Le</title>
+  <meta name="description" content="Multidisciplinary AI engineer">
+  <link rel="canonical" href="http://localhost:4000/page2/">
+  <link rel="alternate" type="application/rss+xml" title="Lynn Le Feed"
+    href="http://localhost:4000/feed.xml">
+  
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/png" />
+  
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%7CNoto+Serif:400,400i,700,700i&display=swap" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="page" class="site">
+    <div class="inner">
+      <header class="site-header">
+  
+  <p class="site-title"><a class="logo-text" href="/">Lynn Le</a></p>
+  
+  <nav class="site-navigation">
+    <div class="site-navigation-wrap">
+      <h2 class="screen-reader-text">Main navigation</h2>
+      <ul class="menu">
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/">Home</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/Projects/">Projects</a>
+        </li>
+        
+        
+        
+        <li class="menu-item ">
+          <a class="" href="/blog/">Blog</a>
+        </li>
+        
+      </ul><!-- .menu -->
+      <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span
+          class="icon-close" aria-hidden="true"></span></button>
+    </div><!-- .site-navigation-wrap -->
+  </nav><!-- .site-navigation -->
+  <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+</header>
+
+
+      <meta http-equiv="refresh" content="0;url=/about">
+<main class="main-content fadeInDown delay_075s">
+
+  
+  <article class="post">
+    <header class="post-header">
+      <time class="post-date" datetime="2020-02-25">February 25, 2020</time>
+      <h2 class="post-title"><a href="/developing-a-simple-game" rel="bookmark">Blogpost6| A simple game</a></h2>
+      <div class="post-meta">
+        By <span class="post-author">Lynn Le</span>
+      </div><!-- .post-meta -->
+      
+    </header><!-- .post-header -->
+    <div class="post-content">
+      
+      <p>Hi! I made a simple game using Unity and C#. To start playing it, please press enter :D</p>
+
+<div style="width: 1000px; height: 632px; overflow: hidden">
+<iframe src="https://lynnle.com/BreakoutGame-pixels/" style="border:0px #000000 none;" name="Avocado" scrolling="no" frameborder="1" marginheight="px" marginwidth="320px" height="750px" width="1000px"></iframe>
+</div>
+
+
+      
+    </div><!-- .post-content -->
+  </article><!-- .post -->
+  
+  <article class="post">
+    <header class="post-header">
+      <time class="post-date" datetime="2019-09-16">September 16, 2019</time>
+      <h2 class="post-title"><a href="/policy-learning" rel="bookmark">Blogpost5| Reinforcement learning&#58; Policy-based</a></h2>
+      <div class="post-meta">
+        By <span class="post-author">Lynn Le</span>
+      </div><!-- .post-meta -->
+      
+    </header><!-- .post-header -->
+    <div class="post-content">
+      
+      <p>Bological entities can extract a large amount of information from binary feedback signals. Reinforcement learning (RL) is a general term for an agent that learns to act using reinforce signals (for example reward or punishment). Two important types of RL in machine learning are Deep Q-learning and policy-based RL. This post is focused on the latter.</p>
+
+<p>An agent that does policy-based RL, learns by updating the parameters of its <b>policy</b> π, which is based on the state that the agent is in and its received reward upon performing an action.</p>
+
+<p>In machine learning, the π can be seen as a differentiable function, which can be implemented with a neural network. The π receives a state as an input and in return outputs different probability scores of each action. In this post, I will focus on explaining how we can use this policy network to perform reinforcement learning.</p>
+
+<h2 id="the-environment">The environment</h2>
+<p><img width="40%" style="float: right;" src="/assets/img/blog_img/blog5/agent_plateau.JPG" /></p>
+
+<p>Imagine an agent running down a continous plateau with the aim to stay on the plateau as long as possible. At every timestep <em>t</em>, he encounters a different surrounding structure and needs to decide whether to shift himself to the right or left in order to stay “alive”. His lifespan is represented as <em>(t<sub>1</sub>, …, T)</em>. The longer he manages to survive during his run, the better his performance.</p>
+
+<h3 id="some-definitions-in-our-environment">Some definitions (in our environment)</h3>
+<ul>
+  <li>Agent: The agent interacts with its environment by performing actions in discrete time steps.</li>
+  <li>Actions <em>a<sub>t</sub></em> : The action that the agent can take at timestep <em>t</em>. At each timestep, the agent can either shift to the left, or to the right.</li>
+  <li>State <em>s<sub>t</sub></em>: The state that the agent is in at timestep <em>t</em>.</li>
+  <li>Reward <em>r<sub>t</sub></em>: The reward returned at timestep <em>t</em>.</li>
+  <li>Episode: Everytime the agent runs on the plateau to learn, it creates an episode that contains all the actions taken at every timestep.</li>
+  <li>Policy π : Is the basic neural network that predicts the probability scores of every action at each time step given a state.</li>
+</ul>
+
+<h2 id="the-learning-concept">The learning concept</h2>
+<p>Basically, the reinforcement algorithm is represented by the following equation:</p>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Cnabla%20J%28%5Ctheta%29%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5EN%5CBig%28%7B%5Csum_%7Bt%3D1%7D%5ET%7D%7B%5Cnabla_%5Ctheta%20%5Clog%7B%5Cpi_%5Ctheta%7D%28a_%7Bi%2Ct%7D%7Cs_%7Bi%2Ct%7D%29%7D%5CBig%29%20%5CBig%28%5Csum_%7Bt%3Di%7D%5ET%20r%28s_%7Bi%2Ct%7D%2C%20a_%7Bi%2Ct%7D%29%5CBig%29" alt="equation" /></p>
+
+<p>Where <em>r(s<sub>i,t</sub>,a<sub>i,t</sub>)</em> is the reward at <em>(s<sub>i,t</sub>,a<sub>i,t</sub>)</em>.</p>
+
+<p>During each episode, the agent runs on the plateau and performs some actions. After the episode, we make use of the reinforce algorithm to update the parameters of the policy network and then run it again.
+<!-- ![equation](https://latex.codecogs.com/gif.latex?%5CDelta%20%5Ctheta%20%3D%20%5Ceta%20%5Cnabla_%5Ctheta%20J%28%5Ctheta%29%29) --></p>
+
+<p>In other words, we want to optimize the parameters in such a way that maximizes the gradient of θ. This is done in three steps:</p>
+
+<ol>
+  <li>
+    <p>Run the policy network π<sub>θ</sub><em>(a<sub>t</sub>|s<sub>t</sub>)</em>  which outputs various action probability scores (τ) given a state <em>s<sub>t</sub></em> and sample a probability score τ<sup>i</sup> from the output.</p>
+  </li>
+  <li>
+    <p>Then, we want to calculate the gradient ascent:</p>
+  </li>
+</ol>
+
+<!-- $$\nabla J (\theta) \approx \sum_i \Big( \sum_t \nabla_\theta \log\pi_\theta(a_{i,t} | s_{i,t}) \Big) \Big(\sum_t r(s_{i,t}, a_{i,t})\Big)$$ -->
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Cnabla%20J%20%28%5Ctheta%29%20%5Capprox%20%5Csum_i%20%5CBig%28%20%5Csum_t%20%5Cnabla_%5Ctheta%20%5Clog%5Cpi_%5Ctheta%28a_%7Bi%2Ct%7D%20%7C%20s_%7Bi%2Ct%7D%29%20%5CBig%29%20%5CBig%28%5Csum_t%20r%28s_%7Bi%2Ct%7D%2C%20a_%7Bi%2Ct%7D%29%5CBig%29" alt="equation" /></p>
+
+<!-- 3) Then gradient asent 
+$\theta \leftarrow  \theta + \eta \nabla_ \theta J(\theta)$ -->
+
+<ol>
+  <li>To ultimately update the parameters of the policy network:</li>
+</ol>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Ctheta%20%5Cleftarrow%20%5Ctheta%20&plus;%20%5Ceta%20%5Cnabla_%20%5Ctheta%20J%28%5Ctheta%29" alt="equation" /></p>
+
+<h2 id="using-cost-to-go-to-reduce-variance">Using cost to go to reduce variance</h2>
+
+<p>So far I have explained the basic reinforcement algorithm. This explained algorithm learns by using ALL the rewards that it gets during that entire episode. Since the π<sub>t’</sub> cannot affect the rewards that occurred before <em>t</em>, it results in a high variance method of learning.</p>
+
+<p>To reduce the variance, we can make use of the future rewards after an action is performed, such that the agent performs based on future rewards only.</p>
+
+<p>This means that the reinforce algorithm becomes:</p>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Cnabla%20J%20%28%5Ctheta%29%20%3D%20%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5EN%20%5Csum_%7Bt%3D1%7D%5ET%20%5Cnabla_%5Ctheta%20%5Clog%5Cpi_%5Ctheta%28a_%7Bi%2Ct%7D%20%7C%20s_%7Bi%2Ct%7D%29%5Chat%7BQ%7D_%7Bi%2Ct%7D" alt="equation" /></p>
+
+<p>Where the Q-hat is the ‘cost-to-go’:</p>
+
+<p><img src="https://latex.codecogs.com/gif.latex?%5Chat%7BQ%7D_%7Bi%2Ct%7D%20%3D%20%5Csum_%7Bt%27%20%3D%20t%7D%5ET%20r%28s_%7Bi%2Ct%27%7D%2C%20a_%7Bi%2Ct%27%7D%29" alt="equation" /></p>
+
+<p>which is the collection of all the future rewards, after a performed action at <em>t</em>.</p>
+
+<h2 id="to-summarize">To summarize</h2>
+
+<p>For each episode, the agent gets to run on the plateau. For each timestep in the episode, the policy takes in a state, and outputs different probabilities of actions, and one action is then randomly sampled (the actions with higher probability scores have a higher probability to be sampled). This happens until the agent falls off the plateau.</p>
+
+<p>We then look at each timestep of that episode, starting at the first timestep. At the first timestep, we sum all the rewards following that timestep, and then update the policy parameters of that timestep, such that the policy output has a positive effect on the total future reward (this we call gradient ascend).</p>
+
+<p>Then for the next timestep of that same episode, we again sum its future rewards, and again the parameters of the policy network is updated based on that sum. When repeating this with many episodes, the policy output becomes more optimal at each timestep and the episodes become longer.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p>I have learned all of this material in the <a href="https://www.ru.nl/courseguides/socsci/courses-osiris/ai/sow-mki49-neural-information-processing-systems/">Neural Information Processing Systems</a> course, this year!</p>
+
+      
+    </div><!-- .post-content -->
+  </article><!-- .post -->
+  
+  <article class="post">
+    <header class="post-header">
+      <time class="post-date" datetime="2019-05-08">May 8, 2019</time>
+      <h2 class="post-title"><a href="/making-an-ensemble-of-models" rel="bookmark">Blogpost4| Making an ensemble of models</a></h2>
+      <div class="post-meta">
+        By <span class="post-author">Lynn Le</span>
+      </div><!-- .post-meta -->
+      
+    </header><!-- .post-header -->
+    <div class="post-content">
+      
+      <h1 id="trained-models">Trained models</h1>
+<p>The pretrained models that I used (<a href="https://pytorch.org/docs/stable/torchvision/models.html" target="\_blank">models provided by PyTorch</a>) all contained linear layers as last layers. I replaced these layers with convolutional layers since I do not want to loose spatial information when predicting my outputs. Additionally I had a self-made deep neural network which consisted of residual blocks and deconvolution layers. I then trained the models separately and ended up having 7 models that performed well.</p>
+
+<h1 id="ensembling-the-models">Ensembling the models</h1>
+
+<p>In order to make a supermodel in PyTorch, we first have to make instances of every model classes. Since we have 7 quite large models, I made a separate file containing all the model classes, and named in <code class="highlighter-rouge">all7models.py</code>. First I need to import all necessary things:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torchvision.models</span> <span class="k">as</span> <span class="n">models</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<!-- ![imports](/assets/img/blog_img/blog4/imports1.png){:width="100%"} -->
+
+<p>Then all the different classes of models that were trained. Here is ana exmaple of the AlexNet model (1 out of 7):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#   ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#   :   A l e x N e t                                                                        
+#   ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="k">class</span> <span class="nc">AlexNet</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outsize</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AlexNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">outsize</span> <span class="o">=</span> <span class="n">outsize</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">alexnet</span> <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">alexnet</span><span class="p">(</span><span class="n">pretrained</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">convout</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Upsample</span><span class="p">(</span><span class="mi">48</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">192</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">192</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="mi">192</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Upsample</span><span class="p">(</span><span class="mi">48</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">192</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">96</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="mi">96</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Upsample</span><span class="p">((</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">)),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">96</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">alexnet</span><span class="p">.</span><span class="n">features</span><span class="p">[:</span><span class="mi">5</span><span class="p">](</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">convout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span> 
+</code></pre></div></div>
+
+<!-- ![AlexNet](/assets/img/blog_img/blog4/AlexNetInstance.png "AlexNet"){:width="100%"} -->
+
+<p>I used the pretrained model from <code class="highlighter-rouge">torchvision.models.alexnet(pretrained=True)</code> and then replace the last layers with a sequentual layer containing upsampling, convolutional, batchnormalization and rectified linear unit layers to ultimately obtain an output of my desired dimensions. The layers that were replaced with the sequential layer were selected based on their outsize, meaning I only ended up using pretrained layers that kept the images at large enough dimensions (again, to keep enough spatia information). I did this with every model and found that they predicted nice outputs.</p>
+
+<p>Anyways, when all the instances of the models are made, the instance of the ensemble can be made. This is a class that initializes all the instances of the models. For PyTorch, it is done like this:</p>
+
+<!-- ![Ensemble](/assets/img/blog_img/blog4/EnsembleInstance.png "Ensemble"){:width="100%"} -->
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyFinalEnsemble_cpu</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outsize</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyFinalEnsemble</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="s">"""
+        This is the ensemble of the SuperModel that is built up of the models (with some having shorter amount of iterations than 50). 
+        The AlexNet 100x, the DenseNet 100x, InceptionV3 100x, ResDeconv 30x, ResNet 100x, SqueezeNet 25x, and VGG 19x."""</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">outsize</span> <span class="o">=</span> <span class="n">outsize</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">alexnet</span> <span class="o">=</span> <span class="n">AlexNet</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">alexnet</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/AlexNet/AlexNet100ep_48x64'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">densenet</span> <span class="o">=</span> <span class="n">DenseNet201</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">densenet</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/DenseNet201/DenseNet100ep_48x64'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">inceptionv3</span> <span class="o">=</span> <span class="n">InceptionV3</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">inceptionv3</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/InceptionV3/InceptionV3_100ep_48x64'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">resdeconv</span> <span class="o">=</span> <span class="n">ResblocksDeconv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">resdeconv</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/ResDeconv/ResDeconv30ep_48x64'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">resnet</span> <span class="o">=</span> <span class="n">ResNet152</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">resnet</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/ResNet152/ResNet152_100ep_48x64'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">squeezenet</span> <span class="o">=</span> <span class="n">SqueezeNet1_1</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">squeezenet</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/SqueezeNet/SqueezeNet25ep_48x64'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">vgg19</span> <span class="o">=</span> <span class="n">VGG19BN</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">outsize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">vgg19</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'final_runs_48x64/VGG19BN/VGG19BN18ep'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">))</span>
+
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">alexnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">densenet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x3</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">inceptionv3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x4</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">resdeconv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x5</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">resnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x6</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">squeezenet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x7</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">vgg19</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="n">x6</span><span class="p">])</span><span class="o">/</span><span class="mi">5</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<h1 id="initializing-the-ensemble">Initializing the ensemble</h1>
+<p>So now that the instances of the models and the the final ensemble are made, the <code class="highlighter-rouge">all7models.py</code> is complete and ready to be used.</p>
+
+<p>In a separate file (I used a jupyter notebook file) in the same directory, I can do:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">all7models</span>
+</code></pre></div></div>
+
+<p>Then I can initialize the ensemble like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">all7models</span><span class="p">.</span><span class="n">MyFinalEnsemble</span><span class="p">(</span><span class="n">outsize</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+<span class="n">model</span><span class="p">.</span><span class="n">cuda</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</code></pre></div></div>
+
+<!-- 
+![Initialize](/assets/img/blog_img/blog4/InitEnsem.png "initialize"){:width="100%"} -->
+
+<p>And then the model can be used to predict!!</p>
+
+      
+    </div><!-- .post-content -->
+  </article><!-- .post -->
+  
+
+  
+  <nav class="pagination">
+    <h2 class="screen-reader-text">Posts navigation</h2>
+    <div class="nav-links">
+      
+      <a href="/" class="newer-posts">&larr; Newer Posts</a>
+      
+      <span class="page-number">Page 2 of 3</span>
+      
+      <a href="/page3/" class="older-posts">Older Posts &rarr;</a>
+      
+    </div>
+  </nav><!-- .pagination -->
+  
+
+</main><!-- .site-main -->
+      <footer class="site-footer">
+  <div class="offsite-links">
+    
+      
+<a href="https://twitter.com/lynnle_ai" target="_blank" rel="noopener">
+  <span class="fa-twitter" aria-hidden="true"></span>
+  <span class="screen-reader-text">Twitter</span>
+</a>
+
+<a href="https://github.com/lelynn" target="_blank" rel="noopener">
+  <span class="fa-github" aria-hidden="true"></span>
+  <span class="screen-reader-text">GitHub</span>
+</a>
+
+<a href="https://www.instagram.com/lynnboulders" target="_blank" rel="noopener">
+  <span class="fa-instagram" aria-hidden="true"></span>
+  <span class="screen-reader-text">Instagram</span>
+</a>
+
+<a href="https://www.linkedin.com/in/lel" target="_blank" rel="noopener">
+  <span class="fa-linkedin" aria-hidden="true"></span>
+  <span class="screen-reader-text">LinkedIn</span>
+</a>
+
+    
+  </div><!-- .offsite-links -->
+  <div class="footer-bottom">
+    <div class="site-info">
+      <p>© Lynn Le. All rights reserved.</p>
+
+    </div><!-- .site-info -->
+    <a href="#page" id="back-to-top" class="back-to-top"><span class="screen-reader-text">Back to the top </span>&#8593;</a>
+  </div><!-- .footer-bottom -->
+</footer><!-- .site-footer -->
+
+    </div><!-- .inner -->
+  </div><!-- .site -->
+
+  <!-- Scripts -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+  <script src="/assets/js/plugins.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+</body>
+</html>
