@@ -1,0 +1,41 @@
+# Ignore Jekyll build output
+_site/
+
+# Ignore Ruby specific files
+.bundle/
+vendor/
+
+# Ignore log files
+log/
+
+# Ignore temporary files
+*.swp
+*.bak
+*.tmp
+
+# Ignore system-specific files
+.DS_Store  # macOS specific
+Thumbs.db  # Windows specific
+
+# Ignore IDEs and editor-specific files
+.idea/
+.vscode/
+.settings/
+
+# Ignore build files (CSS/JS)
+assets/css/
+assets/js/
+.sass-cache/
+node_modules/
+
+# Ignore the Gemfile.lock and gem directories
+Gemfile.lock
+*.gem
+
+# Ignore GitHub specific files
+.github/
+.jekyll-cache/
+
+# Ignore environment-specific files
+.env
+
