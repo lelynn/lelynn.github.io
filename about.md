@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About me
+title: Multidisciplinary AI engineer
 permalink: /about/
 ---
 
