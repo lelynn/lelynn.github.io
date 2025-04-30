@@ -51,4 +51,6 @@ Visit the [Neuroanatomy project page](../_projects/neuroanatomy.md) for more det
 
 ### **[Climbersoap: Designing, Making, and Selling Climbing-Inspired Artisan Soaps](http://climbersoap.com)**
 Check out my climbing-inspired soaps at [climbersoap.com](http://climbersoap.com).
+![Neuroanatomy Image](../assets/img/project_climbersoap/climbersoap.png)
+
 <!-- For more details, visit the [climbersoap project page](../_projects/soapbuilder.md). -->
