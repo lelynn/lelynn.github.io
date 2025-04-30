@@ -143,16 +143,3 @@ I design intelligent tools:
 **Le, L.** (2018). *Biological motion for visual cortex induced phosphenes* (Undergraduate thesis).
 
 👉 More at [Google Scholar](https://scholar.google.com/citations?user=M68qL4cAAAAJ&hl=en)
-
----
-
-## 🤝 let’s collaborate
-
-I'm open to freelance, consulting, and long-term roles in:
-
-- applied AI/ML  
-- neuroscience-inspired systems  
-- research-driven prototyping
-
-📫 [lynn.datalely@gmail.com](mailto:lynn.datalely@gmail.com)  
-🔗 [LinkedIn](https://linkedin.com/in/lel)
