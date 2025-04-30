@@ -38,13 +38,13 @@ permalink: /about/
 
 I design intelligent tools:
 
-- **ai & ml** – generative models, custom training loops, prototyping, evaluation (pytorch, hugging face)  
-- **software engineering** – gui development, webscraping, web development, debugging, deployment, version control (git), environment management (conda), remote workflows (ssh)  
+- **AI & ML** – generative models, custom training loops, prototyping, evaluation (pytorch, hugging face)  
+- **software engineering** – GUI development, webscraping, web development, debugging, deployment, version control (git), environment management (Conda, pip, shell), remote workflows (ssh)  
 - **data & backend systems** – pipelines, scraping, automation, dashboards  
-- **neuro-inspired modeling** – decoding, receptive field mapping, fmri/mua signal analysis  
+- **neuro-inspired modeling** – Decoding/encoding models, inductive biases, foveated vision, eyemovement prediction, behavioral experiments, human-computer interaction, receptive field mapping, fMRI/MUA signal analysis  
 - **creative tools** – browser demos, interactive experiments, game development (Unity & C#)
 - **academic skills** – peer-reviewed writing, experimental design, literature reviews  
-- **languages** – python, c#, c++, matlab
+- **languages** – python, c#, c++, matlab, SQL, LaTex, HTML
 
 ---
 
