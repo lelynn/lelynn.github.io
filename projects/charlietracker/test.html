@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1 id="output">Testing Firebase...</h1>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDfpF022m1cWtAosi8nVNxGjZTxq76wjM8",
+        authDomain: "charlietracker-d40da.firebaseapp.com",
+        databaseURL: "https://charlietracker-d40da-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "charlietracker-d40da",
+        storageBucket: "charlietracker-d40da.appspot.com",
+        messagingSenderId: "751931993915",
+        appId: "1:751931993915:web:0ebfbcf05cbc4deea511e"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      // Write a test value
+      await set(ref(db, 'test'), 'hello');
+
+      // Read it back
+      onValue(ref(db, 'test'), (snapshot) => {
+        document.getElementById("output").innerText = "Firebase says: " + snapshot.val();
+        console.log("✅ Firebase connection working!");
+      });
+    </script>
+  </body>
+</html>

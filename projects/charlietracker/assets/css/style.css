@@ -1,0 +1,44 @@
+
+body {
+  font-family: sans-serif;
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  background: #fffefc;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+}
+
+.entry {
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 6px;
+  background: #f1f1f1;
+}
+
+button {
+  margin-left: 10px;
+}
+.charlie-gallery {
+  margin: 20px 0;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.charlie-gallery img {
+  width: 180px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.charlie-gallery img:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Charlie Tracker</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <h1>🐾 Charlie Tracker Overview</h1>
+  <p>Hi!! This shows the last 9 days. You can toggle payment status and remove/add walk days.</p>
+<div class="charlie-gallery">
+  <img src="assets/img/1.jpeg" alt="Charlie sleeping" />
+  <img src="assets/img/2.jpeg" alt="Charlie sleeping" />
+  <img src="assets/img/3.jpeg" alt="Charlie sleeping" />
+  <img src="assets/img/4.jpeg" alt="Charlie sleeping" />
+
+</div>
+  <div id="summary"></div>
+
+    <!-- Firebase App (core SDK) -->
+ <!-- Firebase Core SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database-compat.js"></script>
+
+<!-- Your Firebase config and app logic -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDfpF022m1cWtAosi8nVNxGjZTxq76wjM8",
+    authDomain: "charlietracker-d40da.firebaseapp.com",
+    databaseURL: "https://charlietracker-d40da-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "charlietracker-d40da",
+    storageBucket: "charlietracker-d40da.appspot.com",
+    messagingSenderId: "751931993915",
+    appId: "1:751931993915:web:0ebfbcf05cbc4deea511e"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- Your main interactive JS -->
+<script src="assets/js/interactive_script.js"></script>
+
+</body>
+</html>

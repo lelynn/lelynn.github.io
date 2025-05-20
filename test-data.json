@@ -1,0 +1,7 @@
+{
+  "payments": [
+    { "date": "2025-05-17", "covered": 3 }
+  ],
+  "removedDays": ["2025-05-20"]
+}
+
