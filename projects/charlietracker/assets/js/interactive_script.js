@@ -29,7 +29,28 @@ function formatDate(str) {
   return date.toDateString();
 }
 
+// function togglePaid(date) {
+//   const paidDates = getPaidDates();
+//   const alreadyPaid = paidDates.includes(date);
+//   if (alreadyPaid) {
+//     payments = payments.filter(p => {
+//       const start = new Date(p.date).toISOString().slice(0, 10);
+//       return !(start === date);
+//     });
+//   } else {
+//     payments.push({ date: date, covered: 1 });
+//   }
+//   // localStorage.setItem("payments", JSON.stringify(payments));
+//   firebase.database().ref("payments").set(payments);
+//   renderSummary();
+// }
+
 function togglePaid(date) {
+  if (!window.canEdit) {
+    alert("🔒 You don’t have permission to make changes.");
+    return;
+  }
+
   const paidDates = getPaidDates();
   const alreadyPaid = paidDates.includes(date);
   if (alreadyPaid) {
@@ -40,20 +61,24 @@ function togglePaid(date) {
   } else {
     payments.push({ date: date, covered: 1 });
   }
-  // localStorage.setItem("payments", JSON.stringify(payments));
+
   firebase.database().ref("payments").set(payments);
   renderSummary();
 }
 
 function toggleWalked(date) {
+  if (!window.canEdit) {
+    alert("🔒 You don’t have permission to make changes.");
+    return;
+  }
+
   if (removedDays.includes(date)) {
     removedDays = removedDays.filter(d => d !== date);
   } else {
     removedDays.push(date);
   }
-  // localStorage.setItem("removedDays", JSON.stringify(removedDays));
-  firebase.database().ref("removedDays").set(removedDays);
 
+  firebase.database().ref("removedDays").set(removedDays);
   renderSummary();
 }
 
@@ -72,7 +97,7 @@ function renderSummary() {
   summaryContainer.innerHTML = "";
   const paidDates = getPaidDates();
 
-  for (let i = -7; i <= 7; i++) {  // Show 13 days: 6 before, 6 after
+  for (let i = -7; i <= 7; i++) {  // Show 15 days: 7 before, 7 after
     const date = new Date();
     date.setDate(today.getDate() + i);
     const dateStr = date.toISOString().slice(0, 10);

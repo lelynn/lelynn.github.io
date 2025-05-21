@@ -38,6 +38,18 @@
 
   firebase.initializeApp(firebaseConfig);
 </script>
+<script>
+  // Ask for passkey and store in global variable
+  window.canEdit = false;
+  const userKey = prompt("Enter Charlie passkey to enable editing:");
+
+  if (userKey === "charlie123") {
+    window.canEdit = true;
+    console.log("✅ Edit mode enabled.");
+  } else {
+    console.log("🔒 View-only mode.");
+  }
+</script>
 
 <!-- Main interactive JS -->
 <script src="assets/js/interactive_script.js"></script>
