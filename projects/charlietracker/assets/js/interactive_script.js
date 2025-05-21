@@ -9,7 +9,9 @@ const todayStr = today.toISOString().slice(0, 10);
 
 
 // let payments = JSON.parse(localStorage.getItem("payments") || "[]");
-let dataReady = { payments: false, removedDays: false };
+let dataReady = { payments: false, removedDays: false, dirtyDays: true };
+
+let dirtyDays = []
 
 firebase.database().ref("payments").on("value", (snapshot) => {
   payments = snapshot.val() || [];
@@ -21,6 +23,11 @@ firebase.database().ref("removedDays").on("value", (snapshot) => {
   removedDays = snapshot.val() || [];
   dataReady.removedDays = true;
   if (dataReady.payments && dataReady.removedDays) renderSummary();
+});
+
+firebase.database().ref("dirtyDays").on("value", (snapshot) => {
+  dirtyDays = snapshot.val() || [];
+  if (dataReady.payments && dataReady.removedDays) renderSummary(); //reuse flags?
 });
 
 
@@ -81,6 +88,21 @@ function toggleWalked(date) {
   firebase.database().ref("removedDays").set(removedDays);
   renderSummary();
 }
+function toggleDirty(date) {
+  if (!window.canEdit) {
+    alert("🔒 You don’t have permission to make changes.");
+    return;
+  }
+
+  if (dirtyDays.includes(date)) {
+    dirtyDays = dirtyDays.filter(d => d !== date); // now allowed
+  } else {
+    dirtyDays.push(date); // not allowed
+  }
+
+  firebase.database().ref("dirtyDays").set(dirtyDays);
+  renderSummary();
+}
 
 function getPaidDates() {
   let coveredDates = [];
@@ -105,6 +127,7 @@ function renderSummary() {
     const paid = paidDates.includes(dateStr);
     const removed = removedDays.includes(dateStr);
     const effectiveWalked = !removed;
+    const dirty = dirtyDays.includes(dateStr);
 
     const div = document.createElement("div");
     div.className = "entry";
@@ -114,15 +137,21 @@ function renderSummary() {
       label = `<s>${label}</s>`;
     }
 
-    div.innerHTML = `
-      ${label} — ${!effectiveWalked ? "🚫 Not walked" : (paid ? "✅ Paid" : "❌ Unpaid")}
+  div.innerHTML = `
+    ${label} — ${!effectiveWalked ? "🚫 Not walked" : (paid ? "✅ Paid" : "❌ Unpaid")}
+    ${effectiveWalked ? (dirty ?
+      '<span class="dirt-status"> </br> ✨ Not allowed to get dirty 🐶💦🚫 </span>'  : 
+      '<span class="dirt-status"> </br> 🐾 Allowed to get dirty 🐶💦</span>') : ""}
+    <div class="button-group">
       ${!removed ? `
-        <button onclick="togglePaid('${dateStr}')">${paid ? "Unmark Paid" : "Mark Paid"}</button>
+        <button onclick="togglePaid('${dateStr}')">${paid ? "Unmark paid" : "Mark paid"}</button>
         <button onclick="toggleWalked('${dateStr}')">Remove</button>
+        <button onclick="toggleDirty('${dateStr}')">${dirty ? "Allow dirt" : "Forbid dirt"}</button>
       ` : `
         <button onclick="toggleWalked('${dateStr}')">Add Back</button>
       `}
-    `;
+    </div>
+  `;
 
     summaryContainer.appendChild(div);
   }
