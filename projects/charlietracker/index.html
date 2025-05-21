@@ -7,23 +7,24 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <h1>🐾 Charlie Tracker Overview</h1>
-  <p>Hi!! This shows the last 9 days. You can toggle payment status and remove/add walk days.</p>
+  <h1>🐾 Charlie walking days</h1>
+  <p>Hi!! This is an overview for last and upcoming 7 the days of Charlie's walks. You can toggle payment status and remove/add walk days.</p>
 <div class="charlie-gallery">
-  <img src="assets/img/1.jpeg" alt="Charlie sleeping" />
-  <img src="assets/img/2.jpeg" alt="Charlie sleeping" />
-  <img src="assets/img/3.jpeg" alt="Charlie sleeping" />
-  <img src="assets/img/4.jpeg" alt="Charlie sleeping" />
+  <img src="assets/img/1.jpeg" alt="Charlie photogenic" />
+  <img src="assets/img/2.jpeg" alt="Charlie happy" />
+  <img src="assets/img/3.jpeg" alt="Charlie face" />
+  <img src="assets/img/4.jpeg" alt="Charlie model" />
+  <img src="assets/img/6.jpeg" alt="Charlie dirty" />
+  <img src="assets/img/7.jpeg" alt="Charlie chilling" />
 
 </div>
   <div id="summary"></div>
 
-    <!-- Firebase App (core SDK) -->
  <!-- Firebase Core SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database-compat.js"></script>
 
-<!-- Your Firebase config and app logic -->
+<!-- Firebase config and app logic -->
 <script>
   const firebaseConfig = {
     apiKey: "AIzaSyDfpF022m1cWtAosi8nVNxGjZTxq76wjM8",
@@ -38,7 +39,7 @@
   firebase.initializeApp(firebaseConfig);
 </script>
 
-<!-- Your main interactive JS -->
+<!-- Main interactive JS -->
 <script src="assets/js/interactive_script.js"></script>
 
 </body>

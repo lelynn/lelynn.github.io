@@ -23,15 +23,36 @@ button {
   margin-left: 10px;
 }
 .charlie-gallery {
-  margin: 20px 0;
-  display: flex;
+  display: grid;
   gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
+  padding: 0 12px;
+  justify-items: center;
+}
+
+/* Default: 3 columns for laptop+ */
+@media (min-width: 901px) {
+  .charlie-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Medium screens (tablet) → 2 columns */
+@media (max-width: 900px) and (min-width: 601px) {
+  .charlie-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Small screens (mobile) → 1 column */
+@media (max-width: 600px) {
+  .charlie-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .charlie-gallery img {
-  width: 180px;
+  width: 100%;
+  max-width: 180px;
   height: auto;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
