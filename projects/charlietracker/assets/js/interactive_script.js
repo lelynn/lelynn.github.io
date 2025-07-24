@@ -119,7 +119,7 @@ function renderSummary() {
   summaryContainer.innerHTML = "";
   const paidDates = getPaidDates();
 
-  for (let i = -7; i <= 7; i++) {  // Show 15 days: 7 before, 7 after
+  for (let i = -25; i <= 7; i++) {  // Show 15 days: 7 before, 7 after
     const date = new Date();
     date.setDate(today.getDate() + i);
     const dateStr = date.toISOString().slice(0, 10);
