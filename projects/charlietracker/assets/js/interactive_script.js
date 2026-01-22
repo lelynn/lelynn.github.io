@@ -4,11 +4,7 @@ const summaryContainer = document.getElementById("summary");
 const today = new Date();
 const todayStr = today.toISOString().slice(0, 10);
 
-// let walkedDays = JSON.parse(localStorage.getItem("walkedDays") || "[]");
-// let walkedDays = [];
-
-
-// let payments = JSON.parse(localStorage.getItem("payments") || "[]");
+let payments = JSON.parse(localStorage.getItem("payments") || "[]");
 let dataReady = { payments: false, removedDays: false, dirtyDays: true };
 
 let dirtyDays = []
@@ -35,22 +31,6 @@ function formatDate(str) {
   const date = new Date(str);
   return date.toDateString();
 }
-
-// function togglePaid(date) {
-//   const paidDates = getPaidDates();
-//   const alreadyPaid = paidDates.includes(date);
-//   if (alreadyPaid) {
-//     payments = payments.filter(p => {
-//       const start = new Date(p.date).toISOString().slice(0, 10);
-//       return !(start === date);
-//     });
-//   } else {
-//     payments.push({ date: date, covered: 1 });
-//   }
-//   // localStorage.setItem("payments", JSON.stringify(payments));
-//   firebase.database().ref("payments").set(payments);
-//   renderSummary();
-// }
 
 function togglePaid(date) {
   if (!window.canEdit) {
@@ -158,4 +138,3 @@ function renderSummary() {
 }
 
 
-// renderSummary();
